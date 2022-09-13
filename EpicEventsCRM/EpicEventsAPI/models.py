@@ -13,17 +13,18 @@ class Client(models.Model):
     company_name = models.CharField(max_length=20)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now_add=False, blank=True)
-    # sales_contact = models.ForeignKey(
-    #     settings.AUTH_USER_MODEL, on_delete=models.CASCADE
-    # )
+    sales_contact = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
 
 
 class Contract(models.Model):
     """Contract model"""
 
-    # sales_contact = models.ForeignKey(
-    #     settings.AUTH_USER_MODEL, on_delete=models.CASCADE
-    # )
+    sales_contact = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now_add=False, blank=True)
@@ -38,9 +39,9 @@ class Event(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now_add=False, blank=True)
-    # support_contact = models.ForeignKey(
-    #     settings.AUTH_USER_MODEL, on_delete=models.CASCADE
-    # )
+    support_contact = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
     # event_status = ??????
     attendees = models.IntegerField()
     event_date = models.DateTimeField(auto_now_add=False)
