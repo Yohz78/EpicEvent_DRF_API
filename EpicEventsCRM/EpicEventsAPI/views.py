@@ -14,7 +14,7 @@ class ClientViewSet(viewsets.ModelViewSet):
     serializer_class = ClientSerializer
     permission_classes = [
         IsAuthenticated,
-        permissions.clientPermissions,
+        permissions.salesPermissions,
     ]
     lookup_field = "pk"
     filter_backends = [DjangoFilterBackend]
@@ -36,7 +36,7 @@ class ContractViewSet(viewsets.ModelViewSet):
     serializer_class = ContractSerializer
     permission_classes = [
         IsAuthenticated,
-        permissions.contractPermissions,
+        permissions.salesPermissions,
     ]
     lookup_field = "pk"
 
