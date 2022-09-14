@@ -28,6 +28,10 @@ class ClientViewSet(viewsets.ModelViewSet):
         "email",
         "company_name",
     ]
+    filterset_fields = [
+        "email",
+        "company_name",
+    ]
 
     def perform_create(self, serializer):
         author = self.request.user
@@ -50,6 +54,12 @@ class ContractViewSet(viewsets.ModelViewSet):
         filters.OrderingFilter,
     ]
     search_fields = ["client__company_name", "client__email", "date_created", "amount"]
+    filterset_fields = [
+        "client__company_name",
+        "client__email",
+        "date_created",
+        "amount",
+    ]
 
     def perform_create(self, serializer):
         client = Client.objects.get(id=serializer.validated_data["client"].id)
@@ -77,6 +87,7 @@ class EventViewSet(viewsets.ModelViewSet):
         filters.OrderingFilter,
     ]
     search_fields = ["client__email", "client__company_name", "event_date"]
+    filterset_fields = ["client__email", "client__company_name", "event_date"]
 
     def perform_create(self, serializer):
         client = Client.objects.get(id=serializer.validated_data["client"].id)
