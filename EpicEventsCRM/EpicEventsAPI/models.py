@@ -12,7 +12,7 @@ class Client(models.Model):
     mobile = models.CharField(max_length=20)
     company_name = models.CharField(max_length=20)
     date_created = models.DateTimeField(auto_now_add=True)
-    date_updated = models.DateTimeField(auto_now_add=False, blank=True)
+    date_updated = models.DateTimeField(auto_now_add=True, blank=True)
     sales_contact = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

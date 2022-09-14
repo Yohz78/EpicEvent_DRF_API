@@ -10,6 +10,8 @@ from EpicEventsAPI.views import (
 
 router = routers.DefaultRouter()
 router.register(r"clients", ClientViewSet)
+# router.register(r"event", EventViewSet)
+# router.register(r"clients", ContractViewSet)
 
 clients_router = routers.NestedSimpleRouter(router, r"clients", lookup="client")
 clients_router.register(r"contracts", ContractViewSet, basename="contract")

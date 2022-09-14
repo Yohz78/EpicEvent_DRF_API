@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path("", admin.site.urls),
-    path("api/", include("EpicEventsCRM.routers")),
+    path("admin", admin.site.urls),
+    path("", include("EpicEventsCRM.routers")),
+    path("", include("rest_framework.urls")),
 ]
