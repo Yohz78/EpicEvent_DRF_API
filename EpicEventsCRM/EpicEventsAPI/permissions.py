@@ -38,7 +38,7 @@ class contractPermissions(permissions.BasePermission):
     """
 
     def has_permission(self, request, view):
-        client = models.Client.objects.get(pk=view.kwargs["client_pk"])
+        client = models.Client.objects.get(pk=view.kwargs["client__pk"])
         if request.user == client.sales_contact:
             return True
 
@@ -53,7 +53,7 @@ class eventPermissions(permissions.BasePermission):
     """
 
     def has_permission(self, request, view):
-        contract = models.Contract.objects.get(pk=view.kwargs["contract_pk"])
+        contract = models.Contract.objects.get(pk=view.kwargs["contract__pk"])
         if request.user == contract.sales_contact:
             return True
 

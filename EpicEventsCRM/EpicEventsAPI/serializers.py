@@ -17,7 +17,6 @@ class ClientSerializer(serializers.ModelSerializer):
             "company_name",
             "date_created",
             "date_updated",
-            "sales_contact",
         ]
 
 
@@ -28,10 +27,7 @@ class ContractSerializer(serializers.ModelSerializer):
         model = Contract
         fields = [
             "pk",
-            "sales_contact",
-            "client",
             "date_created",
-            "date_updated",
             "status",
             "amount",
             "payment_due",
@@ -45,10 +41,7 @@ class EventSerializer(serializers.ModelSerializer):
         model = Event
         fields = [
             "pk",
-            "client",
-            "created_time",
             "date_created",
-            "date_updated",
             "support_contact",
             "attendees",
             "event_date",
