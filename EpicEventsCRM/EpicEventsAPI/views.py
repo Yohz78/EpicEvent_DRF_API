@@ -1,51 +1,28 @@
-from rest_framework import serializers
+from rest_framework import viewsets
+
 from .models import Client, Contract, Event
+from .serializers import ClientSerializer, ContractSerializer, EventSerializer
 
 
-class ClientSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Client
-        fields = [
-            "pk",
-            "first_name",
-            "last_name",
-            "email",
-            "phone",
-            "mobile",
-            "company_name",
-            "date_created",
-            "date_updated",
-            "sales_contact",
-        ]
+class ClientViewSet(viewsets.ModelViewSet):
+    """Client ViewSet"""
+
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+    lookup_field = "pk"
 
 
-class ContractSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Contract
-        fields = [
-            "pk",
-            "sales_contact",
-            "client",
-            "date_created",
-            "date_updated",
-            "status",
-            "amount",
-            "payment_due",
-        ]
+class ContractViewSet(viewsets.ModelViewSet):
+    """Contract ViewSet"""
+
+    queryset = Contract.objects.all()
+    serializer_class = ContractSerializer
+    lookup_field = "pk"
 
 
-class EventSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Event
-        fields = [
-            "pk",
-            "client",
-            "created_time",
-            "date_created",
-            "date_updated",
-            "support_contact",
-            "attendees",
-            "event_date",
-            "status",
-            "notes",
-        ]
+class EventViewSet(viewsets.ModelViewSet):
+    """Event ViewSet"""
+
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+    lookup_field = "pk"
