@@ -5,12 +5,16 @@ from django.contrib.auth.password_validation import validate_password
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """Custom User Serializer"""
+
     class Meta:
         model = User
         fields = ["id", "first_name", "last_name", "username"]
 
 
 class RegisterSerializer(serializers.ModelSerializer):
+    """Custom User signup Serializer"""
+
     email = serializers.EmailField(
         required=True, validators=[UniqueValidator(queryset=User.objects.all())]
     )

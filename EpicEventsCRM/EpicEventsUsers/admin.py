@@ -6,6 +6,8 @@ from .models import CustomUser
 
 
 class CustomUserAdmin(UserAdmin):
+    """Custom user admin"""
+
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
 
@@ -16,11 +18,24 @@ class CustomUserAdmin(UserAdmin):
         "is_active",
         "is_staff",
         "is_superuser",
+        "role",
         "last_login",
     )
     list_filter = ("is_active", "is_staff", "is_superuser")
     fieldsets = (
-        (None, {"fields": ("username", "email", "password")}),
+        (
+            None,
+            {
+                "fields": (
+                    "email",
+                    "password",
+                    "role",
+                    "first_name",
+                    "last_name",
+                    "phone_number",
+                )
+            },
+        ),
         (
             "Permissions",
             {
@@ -33,7 +48,7 @@ class CustomUserAdmin(UserAdmin):
                 )
             },
         ),
-        ("Dates", {"fields": ("last_login", "date_joined")}),
+        # ("Dates", {"fields": ("last_login", "date_joined")}),
     )
     add_fieldsets = (
         (
@@ -42,6 +57,10 @@ class CustomUserAdmin(UserAdmin):
                 "classes": ("wide",),
                 "fields": (
                     "email",
+                    "role",
+                    "first_name",
+                    "last_name",
+                    "phone_number",
                     "password1",
                     "password2",
                     "is_staff",

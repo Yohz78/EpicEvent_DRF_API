@@ -1,10 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser
 from .managers import MyAccountManager
 from django.contrib.auth.models import PermissionsMixin
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    """Custom user model"""
+
     objects = MyAccountManager()
 
     SALES = "sales"
@@ -35,3 +37,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
