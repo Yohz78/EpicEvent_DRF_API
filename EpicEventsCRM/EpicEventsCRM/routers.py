@@ -15,7 +15,7 @@ clients_router = routers.NestedSimpleRouter(router, r"clients", lookup="client")
 clients_router.register(r"contracts", ContractViewSet, basename="contract")
 
 contract_router = routers.NestedSimpleRouter(
-    clients_router, r"clients", lookup="client"
+    clients_router, "contracts", lookup="contract"
 )
 contract_router.register(r"events", EventViewSet, basename="event")
 

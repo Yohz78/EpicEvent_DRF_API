@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.postgres",
+    "rest_framework",
     "EpicEventsAPI",
     "EpicEventsUsers",
 ]
@@ -79,7 +80,7 @@ WSGI_APPLICATION = "EpicEventsCRM.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "EpicEventsDB",
+        "NAME": "EpicEvents",
         "USER": "EpicEventsOwner",
         "PASSWORD": "Helloworld1!",
         "HOST": "127.0.0.1",
