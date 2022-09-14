@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     "django_filters",
     "rest_framework",
+    "rest_framework_simplejwt",
     "EpicEventsAPI",
     "EpicEventsUsers",
 ]
@@ -138,3 +139,11 @@ LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/"
 
 LOGOUT_REDIRECT_URL = "/login"
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+    ],
+}
+
+DATE_INPUT_FORMATS = ["%d-%m-%Y"]

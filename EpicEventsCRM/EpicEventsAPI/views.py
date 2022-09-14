@@ -7,6 +7,9 @@ from .serializers import ClientSerializer, ContractSerializer, EventSerializer
 from . import permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class ClientViewSet(viewsets.ModelViewSet):
@@ -66,6 +69,9 @@ class ContractViewSet(viewsets.ModelViewSet):
         if client.sales_contact.id == self.request.user.id:
             contract = serializer.save(sales_contact=self.request.user)
         else:
+            logger.warning(
+                "User tried to create a contract while not being responsible of the client"
+            )
             raise PermissionDenied(
                 "You are not responsible of this client. As a result, you can't create a contract."
             )
@@ -98,10 +104,16 @@ class EventViewSet(viewsets.ModelViewSet):
             if contract.status == True:
                 event = serializer.save()
             else:
+                logger.warning(
+                    "User trying to create an event while no contract has been signed."
+                )
                 raise PermissionDenied(
                     "No contract has been signed between you and the client. Impossible to create an event  for it."
                 )
         else:
+            logger.warning(
+                "User tryied to created an event while not being responsible of the client"
+            )
             raise PermissionDenied(
                 "You are not responsible of this client. As a result, you can't create an event."
             )
