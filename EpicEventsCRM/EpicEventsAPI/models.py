@@ -42,7 +42,7 @@ class Event(models.Model):
     support_contact = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE
     )
-    # event_status = ??????
+    status = models.BooleanField(default=True)
     attendees = models.IntegerField()
     event_date = models.DateTimeField(auto_now_add=False)
     notes = models.TextField(max_length=1000)
