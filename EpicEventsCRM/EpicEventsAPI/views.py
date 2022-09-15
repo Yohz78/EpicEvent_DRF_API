@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
-
+from EpicEventsUsers.models import CustomUser
 from .models import Client, Contract, Event
 from .serializers import ClientSerializer, ContractSerializer, EventSerializer
 from . import permissions
@@ -102,7 +102,16 @@ class EventViewSet(viewsets.ModelViewSet):
                 sales_contact=self.request.user, client=client
             )
             if contract.status == True:
-                event = serializer.save()
+                support_contact = CustomUser.objects.get(
+                    id=serializer.validated_data["support_contact"].id
+                )
+                if support_contact.role == "support":
+                    event = serializer.save()
+                else:
+                    logger.warning("This user is not a support team member.")
+                    raise PermissionDenied(
+                        "You have to select an User who is a member of the support team in order to create an event."
+                    )
             else:
                 logger.warning(
                     "User trying to create an event while no contract has been signed."

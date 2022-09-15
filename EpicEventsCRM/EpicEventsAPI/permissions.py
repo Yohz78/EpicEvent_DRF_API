@@ -1,3 +1,4 @@
+from operator import truediv
 from rest_framework import permissions
 import logging
 
@@ -13,7 +14,10 @@ class salesPermissions(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        if request.user.role == "sales":
+        if request.user.role == "sales" and request.method != "DELETE":
+            return True
+
+        if request.user.role == "staff" and request.method != "POST":
             return True
 
     def has_object_permission(self, request, view, obj):
@@ -45,14 +49,14 @@ class eventPermissions(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:
             return True
-        if request.user.role == "sales":
+        if request.user.role == "sales" and request.method != "DELETE":
+            return True
+        if request.user.role in ["support", "staff"] and request.method != "POST":
             return True
 
     def has_object_permission(self, request, view, obj):
         try:
             if request.method in permissions.SAFE_METHODS:
-                return True
-            if request.user.role == "staff" and request.method != "DELETE":
                 return True
             if (
                 request.user == obj.client.sales_contact

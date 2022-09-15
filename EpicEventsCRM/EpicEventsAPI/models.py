@@ -37,7 +37,7 @@ class Contract(models.Model):
     payment_due = models.DateTimeField("Payment due date", auto_now_add=False)
 
     def __str__(self):
-        return self.email
+        return str(self.client)
 
 
 class Event(models.Model):
