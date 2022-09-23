@@ -64,6 +64,15 @@ class eventPermissions(permissions.BasePermission):
                 and request.method != "DELETE"
             ):
                 return True
+            if (
+                request.user.role == "sales"
+                and request.method in permissions.SAFE_METHODS
+            ):
+                return True
+
+            if request.user.role == "staff" and request.method != "DELETE":
+                return True
+
         except:
             logger.warning("User tried a forbbiden method.")
             return False
