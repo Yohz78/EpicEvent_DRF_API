@@ -126,3 +126,15 @@ class EventViewSet(viewsets.ModelViewSet):
             raise PermissionDenied(
                 "You are not responsible of this client. As a result, you can't create an event."
             )
+
+    def perform_update(self, serializer):
+        support_contact = CustomUser.objects.get(
+            id=serializer.validated_data["support_contact"].id
+        )
+        if support_contact.role == "support":
+            event = serializer.save()
+        else:
+            logger.warning("This user is not a support team member.")
+            raise PermissionDenied(
+                "You have to select an User who is a member of the support team in order to create an event."
+            )
